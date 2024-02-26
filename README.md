@@ -26,3 +26,8 @@ CREATE TABLE restaurants (
 SELECT * FROM restaurants
 WHERE price_tier = 'cheap' AND neighborhood = 'Long Island City';
 
+
+SELECT * FROM restaurants
+WHERE category = 'French' AND average_rating >= 3
+ORDER BY average_rating DESC;
+
