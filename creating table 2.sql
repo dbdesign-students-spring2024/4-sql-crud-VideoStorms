@@ -18,6 +18,7 @@ CREATE TABLE posts (
     content TEXT NOT NULL,
     recipient_id INTEGER,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    is_visible BOOLEAN NOT NULL,
     FOREIGN KEY(user_id) REFERENCES users(user_id),
     FOREIGN KEY(recipient_id) REFERENCES users(user_id)
 );
