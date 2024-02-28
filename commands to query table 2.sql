@@ -8,9 +8,11 @@ SELECT * FROM posts WHERE post_type IN ('Message', 'Story') ORDER BY created_at 
 
 SELECT * FROM posts WHERE post_type = 'Message' AND user_id = 1 AND recipient_id = 2 ORDER BY created_at DESC LIMIT 10;
 
-UPDATE posts SET is_visible = 'No' WHERE post_type = 'Story' AND ROUND((JULIANDAY('now') - JULIANDAY(created_at)) * 24) > 24;
+UPDATE posts SET is_visible = '0' WHERE post_type = 'Story' AND ROUND((JULIANDAY('now') - JULIANDAY(created_at)) * 24) > 24;
 
-SELECT * FROM posts WHERE is_visible = 'No' ORDER BY created_at DESC;
+SELECT * FROM posts WHERE is_visible = '0' ORDER BY created_at DESC;
+
+SELECT * FROM posts WHERE is_visible = '1' ORDER BY created_at DESC;
 
 SELECT p.content, u.email FROM posts p JOIN users u ON p.user_id = u.user_id WHERE ROUND((JULIANDAY('now') - JULIANDAY(p.created_at)) * 24) <= 24;
 
