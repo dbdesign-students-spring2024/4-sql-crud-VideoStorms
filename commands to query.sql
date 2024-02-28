@@ -8,7 +8,8 @@ ORDER BY average_rating DESC;
 
 SELECT * 
 FROM restaurants 
-WHERE '18:00' BETWEEN opening_hours AND closing_hours;
+WHERE strftime('%H:%M', 'now', 'localtime') BETWEEN opening_hours AND closing_hours;
+
 
 INSERT INTO reviews (restaurant_id, review_text, rating) 
 VALUES (5, 'Great experience, will definitely come back!', 5);
