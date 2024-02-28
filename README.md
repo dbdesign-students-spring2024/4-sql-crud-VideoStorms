@@ -21,7 +21,7 @@ CREATE TABLE restaurants (
 
 .mode csv
 
-.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/MOCK_DATA-3.csv restaurants
+.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/MOCK_DATA-3.csv restaurants
 
 SELECT * FROM restaurants
 WHERE price_tier = 'cheap' AND neighborhood = 'Long Island City';
