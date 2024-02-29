@@ -64,7 +64,7 @@ CREATE TABLE posts (
 
 ```
 ## A link to each of the practice CSV data files in the data directory.
-Here is a link to the CSV of the [posts](https://github.com/dbdesign-students-spring2024/4-sql-crud-VideoStorms/blob/main/data/posts.csv), [resturants](https://github.com/dbdesign-students-spring2024/4-sql-crud-VideoStorms/blob/main/data/restaurants.csv) and [users](https://github.com/dbdesign-students-spring2024/4-sql-crud-VideoStorms/blob/main/data/users.csv). 
+Here is a link to the CSV of the [posts](https://github.com/dbdesign-students-spring2024/4-sql-crud-VideoStorms/blob/main/data/posts.csv), [restaurants](https://github.com/dbdesign-students-spring2024/4-sql-crud-VideoStorms/blob/main/data/restaurants.csv) and [users](https://github.com/dbdesign-students-spring2024/4-sql-crud-VideoStorms/blob/main/data/users.csv). 
 
 ## The SQLite code to import the practice CSV data files into the tables.
 
@@ -72,7 +72,7 @@ Here is a link to the CSV of the [posts](https://github.com/dbdesign-students-sp
 ```SQL
 .mode csv
 
-.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/MOCK_DATA-FOR-RESTURANTS.csv restaurants
+.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/restaurants.csv restaurants
 ```
 
 ### Users and posts
@@ -99,6 +99,115 @@ WHERE price_tier = 'cheap' AND neighborhood = 'Long Island City';
 SELECT * FROM restaurants
 WHERE category = 'French' AND average_rating >= 3
 ORDER BY average_rating DESC;
+```
+
+### Task 3: Find all restaurants that are open now.
+
+```SQL
+SELECT * 
+FROM restaurants 
+WHERE strftime('%H:%M', 'now', 'localtime') BETWEEN opening_hours AND closing_hours;
+```
+
+### Task 4: Leave a review for a restaurant.
+
+```SQL
+INSERT INTO reviews (restaurant_id, review_text, rating) 
+VALUES (5, 'Great experience, will definitely come back!', 5);
+```
+
+### Task 5: Delete all restaurants that are not good for kids.
+
+```SQL
+DELETE FROM restaurants 
+WHERE good_for_kids = FALSE;
+```
+
+### Task 6: Find the number of restaurants in each NYC neighborhood.
+
+```SQL
+SELECT neighborhood, COUNT(*) AS num_restaurants 
+FROM restaurants 
+GROUP BY neighborhood;
+```
+
+### Task 1: Register a new User.
+
+```SQL
+INSERT INTO users (email, password, handle) 
+VALUES ('newuser@example.com', 'password123', 'newuserhandle');
+```
+
+### Task 2: Create a new Message sent by a particular User to a particular User.
+
+```SQL
+INSERT INTO posts (user_id, post_type, content, recipient_id) 
+VALUES (1, 'Message', 'This is a message content.', 2);
+```
+
+### Task 3: Create a new Story by a particular User.
+
+```SQL
+INSERT INTO posts (user_id, post_type, content) 
+VALUES (1, 'Story', 'This is a story content.');
+```
+
+### Task 4: Show the 10 most recent visible Messages and Stories, in order of recency.
+
+```SQL
+SELECT * FROM posts 
+WHERE post_type IN ('Message', 'Story') 
+ORDER BY created_at DESC LIMIT 10;
+```
+
+### Task 5: Show the 10 most recent visible Messages sent by a particular User to a particular User, in order of recency.
+
+```SQL
+SELECT * FROM posts 
+WHERE post_type = 'Message' AND user_id = 1 AND recipient_id = 2 
+ORDER BY created_at DESC LIMIT 10;
+```
+
+### Task 6: Make all Stories that are more than 24 hours old invisible.
+
+```SQL
+UPDATE posts SET is_visible = '0' 
+WHERE post_type = 'Story' AND ROUND((JULIANDAY('now') - JULIANDAY(created_at)) * 24) > 24;
+```
+
+### Task 7: Show all invisible Messages and Stories, in order of recency.
+
+```SQL
+SELECT * FROM posts 
+WHERE is_visible = '0' 
+ORDER BY created_at DESC;
+```
+
+### Task 8: Show the number of posts by each User.
+
+```SQL
+SELECT users.user_id, users.email, COUNT(posts.post_id) AS num_posts
+FROM users
+LEFT JOIN posts ON users.user_id = posts.user_id
+GROUP BY users.user_id;
+```
+
+### Task 9: Show the post text and email address of all posts and the User who made them within the last 24 hours.
+
+```SQL
+SELECT posts.content, users.email
+FROM posts
+JOIN users ON posts.user_id = users.user_id
+WHERE ROUND((JULIANDAY('now') - JULIANDAY(posts.created_at)) * 24) <= 24;
+```
+
+### Task 10: Show the email addresses of all Users who have not posted anything yet.
+
+```SQL
+SELECT users.email
+FROM users
+LEFT JOIN posts ON users.user_id = posts.user_id
+WHERE posts.post_id IS NULL;
 ```
 
 

@@ -14,7 +14,7 @@ CREATE TABLE restaurants (
 
 .mode csv
 
-.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/MOCK_DATA-FOR-RESTURANTS.csv restaurants
+.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/restaurants.csv restaurants
 
 CREATE TABLE reviews (
     review_id INTEGER PRIMARY KEY,
