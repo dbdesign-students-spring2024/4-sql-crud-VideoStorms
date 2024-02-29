@@ -23,10 +23,6 @@ CREATE TABLE restaurants (
     good_for_kids BOOLEAN NOT NULL
 );
 
-.mode csv
-
-.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/MOCK_DATA-FOR-RESTURANTS.csv restaurants
-
 CREATE TABLE reviews (
     review_id INTEGER PRIMARY KEY,
     restaurant_id INTEGER NOT NULL,
@@ -52,9 +48,7 @@ CREATE TABLE users (
     handle TEXT UNIQUE NOT NULL
 );
 
-.mode csv
 
-.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/users.csv users
 
 CREATE TABLE posts (
     post_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -68,18 +62,43 @@ CREATE TABLE posts (
     FOREIGN KEY(recipient_id) REFERENCES users(user_id)
 );
 
+```
+## A link to each of the practice CSV data files in the data directory.
+Here is a link to the CSV of the [posts](https://github.com/dbdesign-students-spring2024/4-sql-crud-VideoStorms/blob/main/data/posts.csv), [resturants](https://github.com/dbdesign-students-spring2024/4-sql-crud-VideoStorms/blob/main/data/restaurants.csv) and [users](https://github.com/dbdesign-students-spring2024/4-sql-crud-VideoStorms/blob/main/data/users.csv). 
+
+## The SQLite code to import the practice CSV data files into the tables.
+
+### Resturants
+```SQL
+.mode csv
+
+.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/MOCK_DATA-FOR-RESTURANTS.csv restaurants
+```
+
+### Users and posts
+```SQL
+.mode csv
+
+.import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/users.csv users
+
 .mode csv
 
 .import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/posts.csv posts
 ```
 
+## The SQL queries that solve each of the tasks you were asked to do. Make it clear which task each query is intended to solve - include the task number and text on the line above the SQL code solution.
 
 
+### Task 1 Find all cheap restaurants in a particular neighborhood (pick any neighborhood as an example).
+```SQL
 SELECT * FROM restaurants
 WHERE price_tier = 'cheap' AND neighborhood = 'Long Island City';
-
-
+```
+### Task 2 Find all restaurants in a particular genre (pick any genre as an example) with 3 stars or more, ordered by the number of stars in descending order.
+```SQL
 SELECT * FROM restaurants
 WHERE category = 'French' AND average_rating >= 3
 ORDER BY average_rating DESC;
+```
+
 
