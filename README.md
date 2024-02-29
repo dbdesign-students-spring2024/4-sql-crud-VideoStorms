@@ -86,7 +86,7 @@ Here is a link to the CSV of the [posts](https://github.com/dbdesign-students-sp
 .import /Users/raresgrecu/Documents/School/Database_Design/4-sql-crud-VideoStorms/data/posts.csv posts
 ```
 
-## The SQL queries that solve each of the tasks you were asked to do. Make it clear which task each query is intended to solve - include the task number and text on the line above the SQL code solution.
+## The SQL queries that solve each of the tasks you were asked to do. Make it clear which task each query is intended to solve - include the task number and text on the line above the SQL code solution. (Restaurants)
 
 
 ### Task 1 Find all cheap restaurants in a particular neighborhood (pick any neighborhood as an example).
@@ -130,6 +130,7 @@ SELECT neighborhood, COUNT(*) AS num_restaurants
 FROM restaurants 
 GROUP BY neighborhood;
 ```
+## The SQL queries (SOCIAL MEDIA APP)
 
 ### Task 1: Register a new User.
 
